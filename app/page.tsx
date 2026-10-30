@@ -1,0 +1,237 @@
+import type { Metadata } from 'next'
+import FadeIn from '@/components/ui/FadeIn'
+import AvatarToggle from '@/components/ui/AvatarToggle'
+import RotatingText from '@/components/ui/RotatingText'
+import FaithCover from '@/components/ui/FaithCover'
+import AboutContent from '@/components/sections/AboutContent'
+import ProjectsShowcase from '@/components/sections/ProjectsShowcase'
+import GithubCalendar from '@/components/sections/GithubCalendar'
+import CompactAudioPlayer from '@/components/sections/AudioExperience'
+
+export const metadata: Metadata = {
+  title: 'Wisdom Akpan — Software Engineer',
+  description:
+    'Software Engineer building scalable web & mobile applications with Next.js and React Native.',
+}
+
+// Social/contact data — single source of truth
+const LINKS = {
+  email: 'akpanw284@gmail.com',
+  whatsapp: 'https://wa.me/2347044297649',
+  github: 'https://github.com/akpanw105-coder',
+  x: 'https://x.com/akpan_wisd8378',
+  resume: '/Final_Resume.pdf',
+  bookMe: '#', // TODO: Configure booking destination (e.g., Cal.com or Calendly)
+}
+
+export default function Home() {
+  return (
+    <>
+      {/* ── Cover Banner ──────────────────────────────────────────── */}
+      <section
+        aria-label="Cover banner"
+        className="relative z-10 mx-auto w-full max-w-[var(--content-width)] px-4 pt-8 sm:pt-12"
+      >
+        <FadeIn delay={0}>
+          <FaithCover />
+        </FadeIn>
+      </section>
+
+      {/* ── Profile + Identity Row ────────────────────────────────── */}
+      {/*
+          Layout mirrors the reference screenshot:
+          - Avatar sits below the cover, overlapping its bottom edge via -mt-11
+          - On desktop: avatar on the far left, compact player floats to the far right
+          - On mobile: avatar left-aligned, player stacks below the intro area
+      */}
+      <section className="relative z-10 mx-auto w-full max-w-[var(--content-width)] px-4 pb-4">
+
+        {/* Avatar — overlaps cover bottom */}
+        <FadeIn delay={60}>
+          <div className="-mt-11 mb-4">
+            <AvatarToggle />
+          </div>
+        </FadeIn>
+
+        {/* Name / Intro / Player — two-column on desktop */}
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-8">
+
+          {/* LEFT: Name, headline, description, CTAs */}
+          <div className="flex-1 min-w-0">
+            {/* Name */}
+            <FadeIn delay={100}>
+              <h1 className="mb-1.5 text-[28px] sm:text-[34px] font-semibold leading-tight tracking-tight text-foreground">
+                Wisdom Akpan
+              </h1>
+            </FadeIn>
+
+            {/* Animated rotating headline */}
+            <FadeIn delay={160}>
+              <p className="mb-5 flex flex-wrap items-baseline gap-x-2 text-base text-muted-foreground sm:text-lg">
+                <span>Software Engineer</span>
+                <span className="text-muted-foreground/60 select-none">·</span>
+                <RotatingText />
+              </p>
+            </FadeIn>
+
+            {/* Short bio */}
+            <FadeIn delay={220}>
+              <p className="mb-7 max-w-sm text-sm leading-relaxed text-muted-foreground sm:text-base">
+                I build scalable web and mobile applications using{' '}
+                <span className="text-foreground font-medium">Next.js</span> and{' '}
+                <span className="text-foreground font-medium">React Native</span> — turning complex
+                problems into clean, reliable products.
+              </p>
+            </FadeIn>
+
+            {/* CTA buttons */}
+            <FadeIn delay={280}>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <a
+                  href="#projects"
+                  className="inline-flex h-9 items-center rounded-full bg-foreground px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-80 active:scale-95"
+                >
+                  View Projects
+                </a>
+                <a
+                  href={`mailto:${LINKS.email}`}
+                  className="inline-flex h-9 items-center rounded-full border border-border px-5 text-sm font-medium text-foreground transition-colors hover:bg-muted active:scale-95"
+                >
+                  Contact Me
+                </a>
+                <a
+                  href={LINKS.resume}
+                  download="Wisdom_Akpan_Resume.pdf"
+                  className="inline-flex h-9 items-center rounded-full border border-border px-5 text-sm font-medium text-foreground transition-colors hover:bg-muted active:scale-95"
+                  aria-label="Download Wisdom Akpan's resume as PDF"
+                >
+                  Resume ↓
+                </a>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* RIGHT: Compact Music Player */}
+          <FadeIn delay={180} className="w-full md:w-auto md:flex-shrink-0">
+            <CompactAudioPlayer />
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── Social links strip ───────────────────────────────────── */}
+      <FadeIn delay={340}>
+        <section
+          aria-label="Social and contact links"
+          className="relative z-10 mx-auto w-full max-w-[var(--content-width)] border-t border-border/50 px-4 py-5 mb-16 mt-6"
+        >
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
+            <li>
+              <a
+                href={LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+              >
+                <GithubIcon />
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a
+                href={LINKS.x}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X (formerly Twitter) profile"
+                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+              >
+                <XIcon />
+                X
+              </a>
+            </li>
+            <li>
+              <a
+                href={LINKS.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Message on WhatsApp"
+                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+              >
+                <WhatsAppIcon />
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${LINKS.email}`}
+                aria-label="Send email to Wisdom Akpan"
+                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+              >
+                <MailIcon />
+                {LINKS.email}
+              </a>
+            </li>
+          </ul>
+        </section>
+      </FadeIn>
+
+      {/* ── About Section (accessible via natural scroll) ────────── */}
+      <section className="relative z-10 mx-auto w-full max-w-[var(--content-width)] px-4 pb-20 sm:pb-28">
+        <AboutContent id="about" headingLevel="h2" />
+      </section>
+
+      {/* ── Featured Projects Showcase ──────────────────────────── */}
+      <section id="projects" className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-20 sm:pb-28">
+        <FadeIn delay={60}>
+          <ProjectsShowcase
+            mode="featured"
+            title="Featured Deployments"
+            subtitle="Interactive case studies of production web and mobile software engineered with Next.js and React Native."
+          />
+        </FadeIn>
+      </section>
+
+      {/* ── GitHub Contributions Calendar ────────────────────────── */}
+      <section className="relative z-10 mx-auto w-full max-w-[var(--content-width)] px-4 pb-20 sm:pb-28">
+        <FadeIn delay={100}>
+          <GithubCalendar />
+        </FadeIn>
+      </section>
+    </>
+  )
+}
+
+/* ── Inline SVG icons (no extra package needed) ─────────────── */
+
+function GithubIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+    </svg>
+  )
+}
+
+function XIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+    </svg>
+  )
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  )
+}
+
+function MailIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  )
+}
