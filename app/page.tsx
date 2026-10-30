@@ -44,7 +44,7 @@ export default function Home() {
           - On desktop: avatar on the far left, compact player floats to the far right
           - On mobile: avatar left-aligned, player stacks below the intro area
       */}
-      <section className="relative z-10 mx-auto w-full max-w-[var(--content-width)] px-4 pb-4">
+      <section className="relative z-10 mx-auto w-full max-w-[var(--content-width)] px-4 pb-0 mb-16">
 
         {/* Avatar — overlaps cover bottom */}
         <FadeIn delay={60}>
@@ -53,11 +53,16 @@ export default function Home() {
           </div>
         </FadeIn>
 
-        {/* Name / Intro / Player — two-column on desktop */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-8">
+        {/* Name / Intro / Player — two-column on desktop, ordered column on mobile */}
+        {/*
+            Mobile order:  1. Left content  2. Social links  3. Audio player
+            Desktop order: 1. Left content (flex-1) | 2. Audio player (right col)
+                           3. Social links (full-width row below, via md:flex-wrap)
+        */}
+        <div className="flex flex-col md:flex-row md:flex-wrap md:items-start md:justify-between gap-6 md:gap-8">
 
-          {/* LEFT: Name, headline, description, CTAs */}
-          <div className="flex-1 min-w-0">
+          {/* LEFT: Name, headline, description, CTAs — always first */}
+          <div className="order-1 flex-1 min-w-0">
             {/* Name */}
             <FadeIn delay={100}>
               <h1 className="mb-1.5 text-[28px] sm:text-[34px] font-semibold leading-tight tracking-tight text-foreground">
@@ -111,69 +116,75 @@ export default function Home() {
             </FadeIn>
           </div>
 
-          {/* RIGHT: Compact Music Player */}
-          <FadeIn delay={180} className="w-full md:w-auto md:flex-shrink-0">
+          {/* ── Social links strip ──────────────────────────────────────
+              Mobile:  order-2 → appears directly after left content
+              Desktop: order-3 + w-full → wraps onto its own full-width row below both columns
+          */}
+          <FadeIn delay={340} className="order-2 md:order-3 w-full">
+            <section
+              aria-label="Social and contact links"
+              className="border-t border-border/50 py-5"
+            >
+              <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
+                <li>
+                  <a
+                    href={LINKS.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub profile"
+                    className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  >
+                    <GithubIcon />
+                    GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={LINKS.x}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X (formerly Twitter) profile"
+                    className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  >
+                    <XIcon />
+                    X
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={LINKS.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Message on WhatsApp"
+                    className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  >
+                    <WhatsAppIcon />
+                    WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${LINKS.email}`}
+                    aria-label="Send email to Wisdom Akpan"
+                    className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  >
+                    <MailIcon />
+                    {LINKS.email}
+                  </a>
+                </li>
+              </ul>
+            </section>
+          </FadeIn>
+
+          {/* RIGHT: Compact Music Player
+              Mobile:  order-3 → appears after social links
+              Desktop: order-2 → floats to the right of the left content
+          */}
+          <FadeIn delay={180} className="order-3 md:order-2 w-full md:w-auto md:flex-shrink-0">
             <CompactAudioPlayer />
           </FadeIn>
         </div>
       </section>
-
-      {/* ── Social links strip ───────────────────────────────────── */}
-      <FadeIn delay={340}>
-        <section
-          aria-label="Social and contact links"
-          className="relative z-10 mx-auto w-full max-w-[var(--content-width)] border-t border-border/50 px-4 py-5 mb-16 mt-6"
-        >
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
-            <li>
-              <a
-                href={LINKS.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub profile"
-                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
-              >
-                <GithubIcon />
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a
-                href={LINKS.x}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X (formerly Twitter) profile"
-                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
-              >
-                <XIcon />
-                X
-              </a>
-            </li>
-            <li>
-              <a
-                href={LINKS.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Message on WhatsApp"
-                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
-              >
-                <WhatsAppIcon />
-                WhatsApp
-              </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${LINKS.email}`}
-                aria-label="Send email to Wisdom Akpan"
-                className="flex items-center gap-1.5 transition-colors hover:text-foreground"
-              >
-                <MailIcon />
-                {LINKS.email}
-              </a>
-            </li>
-          </ul>
-        </section>
-      </FadeIn>
 
       {/* ── About Section (accessible via natural scroll) ────────── */}
       <section className="relative z-10 mx-auto w-full max-w-[var(--content-width)] px-4 pb-20 sm:pb-28">

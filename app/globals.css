@@ -3,56 +3,59 @@
 /* ─── Design Tokens ─────────────────────────────────────────── */
 :root {
   /* Colors — neutral light palette (inspired by upriyanshu.tech) */
-  --background:         oklch(100% 0.00011 271);
-  --foreground:         oklch(18%  0.01    155);
-  --card:               oklch(98.5% 0.005  155);
-  --card-foreground:    oklch(18%  0.01    155);
-  --muted:              oklch(96%  0.005  155);
-  --muted-foreground:   oklch(48%  0.015  155);
-  --border:             oklch(88%  0.008  155);
-  --primary:            oklch(18%  0.01    155);
-  --primary-foreground: oklch(98%  0.005  155);
-  --secondary:          oklch(42%  0.015  155);
-  --accent:             oklch(96%  0.005  155);
-  --ring:               oklch(70%  0.01   155);
+  --background: oklch(100% 0.00011 271);
+  --foreground: oklch(18% 0.01 155);
+  --card: oklch(98.5% 0.005 155);
+  --card-foreground: oklch(18% 0.01 155);
+  --muted: oklch(96% 0.005 155);
+  --muted-foreground: oklch(40% 0.018 155);
+  --border: oklch(88% 0.008 155);
+  --primary: oklch(18% 0.01 155);
+  --primary-foreground: oklch(98% 0.005 155);
+  --secondary: oklch(42% 0.015 155);
+  --accent: oklch(96% 0.005 155);
+  --ring: oklch(70% 0.01 155);
 
   /* Shape */
   --radius: 0.625rem;
 
   /* Grid system */
-  --grid-cell:   40px;
-  --grid-cols:   18;
-  --content-width: calc(var(--grid-cell) * var(--grid-cols)); /* 720px */
+  --grid-cell: 40px;
+  --grid-cols: 18;
+  --content-width: calc(var(--grid-cell) * var(--grid-cols));
+  /* 720px */
 
   /* Transitions */
-  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── Tailwind theme bridge ──────────────────────────────────── */
 @theme inline {
-  --color-background:       var(--background);
-  --color-foreground:       var(--foreground);
-  --color-card:             var(--card);
-  --color-card-foreground:  var(--card-foreground);
-  --color-muted:            var(--muted);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-border:           var(--border);
-  --color-primary:          var(--primary);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary:        var(--secondary);
-  --color-accent:           var(--accent);
-  --color-ring:             var(--ring);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --radius-sm:  calc(var(--radius) - 2px);
-  --radius-md:  var(--radius);
-  --radius-lg:  calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
 }
 
 /* ─── Base styles ────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -62,10 +65,10 @@ html {
 
 body {
   background-color: var(--background);
-  /* Engineering grid from upriyanshu.tech: subtle 40px grid lines using low 4% opacity */
+  /* Engineering grid: subtle 40px grid lines using low opacity, adapted smoothly across viewports */
   background-image:
-    linear-gradient(color-mix(in srgb, var(--foreground) 4.5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--foreground) 4.5%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px);
   background-size: var(--grid-cell) var(--grid-cell);
   background-position: top center;
   color: var(--foreground);
@@ -75,12 +78,21 @@ body {
   line-height: 1.6;
 }
 
+@media (min-width: 768px) {
+  body {
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--foreground) 4.5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--foreground) 4.5%, transparent) 1px, transparent 1px);
+  }
+}
+
 /* ─── Keyframe Animations ────────────────────────────────────── */
 @keyframes fade-in-up {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -88,17 +100,26 @@ body {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ─── Reduced motion ─────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
   html {
     scroll-behavior: auto;
   }

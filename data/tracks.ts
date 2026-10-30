@@ -33,14 +33,6 @@ export const TRACKS: Track[] = [
     durationFormatted: '4:38',
   },
   {
-    id: 'peace',
-    title: 'Peace',
-    artist: 'Moments of Worship',
-    version: 'Soaking Instrumental',
-    src: '/music/Moments_of_Worship_-_Peace_Instrumental_Soaking_Worship_CeeNaija.com_.mp3',
-    durationFormatted: '1:19:25',
-  },
-  {
     id: 'ruach',
     title: 'Ruach',
     artist: 'Soaking Worship',

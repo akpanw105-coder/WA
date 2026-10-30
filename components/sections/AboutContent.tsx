@@ -138,7 +138,7 @@ export default function AboutContent({
                   {cat.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-xs font-medium px-2.5 py-1 rounded-md bg-foreground/[0.04] text-foreground border border-border/60"
+                      className="text-xs font-medium px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-border/80 shadow-2xs"
                     >
                       {skill}
                     </span>

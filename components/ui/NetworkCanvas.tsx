@@ -111,6 +111,10 @@ export default function NetworkCanvas() {
       }
 
       // 2. Draw connecting network lines
+      const isMobile = width < 768
+      const effectiveLineAlphaMax = isMobile ? LINE_ALPHA_MAX * 0.55 : LINE_ALPHA_MAX
+      const effectiveParticleAlpha = isMobile ? PARTICLE_ALPHA * 0.65 : PARTICLE_ALPHA
+
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i]
         for (let j = i + 1; j < particles.length; j++) {
@@ -122,8 +126,8 @@ export default function NetworkCanvas() {
           if (dist < MAX_DIST) {
             // Cubic falloff for smoother, more elegant fading
             const ratio = 1 - dist / MAX_DIST
-            const alpha = LINE_ALPHA_MAX * (ratio * ratio)
-            
+            const alpha = effectiveLineAlphaMax * (ratio * ratio)
+
             ctx.beginPath()
             ctx.moveTo(p1.x, p1.y)
             ctx.lineTo(p2.x, p2.y)
@@ -139,7 +143,7 @@ export default function NetworkCanvas() {
         const p = particles[i]
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(24, 24, 27, ${PARTICLE_ALPHA})`
+        ctx.fillStyle = `rgba(24, 24, 27, ${effectiveParticleAlpha})`
         ctx.fill()
       }
 
