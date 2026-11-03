@@ -102,7 +102,7 @@ export default function Home() {
                   href={`mailto:${LINKS.email}`}
                   className="inline-flex h-9 items-center rounded-full border border-border px-5 text-sm font-medium text-foreground transition-colors hover:bg-muted active:scale-95"
                 >
-                  Contact Me
+                  Hire Me
                 </a>
                 <a
                   href={LINKS.resume}

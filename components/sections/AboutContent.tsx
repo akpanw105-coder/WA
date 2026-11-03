@@ -33,9 +33,18 @@ export const SKILL_CATEGORIES = [
     ],
   },
   {
+    category: 'Authentication',
+    skills: [
+      'Clerk',
+      'Better Auth',
+    ],
+  },
+  {
     category: 'Payments & AI',
     skills: [
       'Stripe',
+      'Paystack',
+      'Flutterwave',
       'Google Gemini',
     ],
   },
